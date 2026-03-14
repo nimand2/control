@@ -9,7 +9,6 @@ impl MachineAct for TestMachine {
         }
 
         if now.duration_since(self.last_state_emit) > Duration::from_secs_f64(1.0 / 30.0) {
-            self.read_inputs();
             self.emit_state();
             self.last_state_emit = now;
         }
