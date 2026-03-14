@@ -258,11 +258,6 @@ export const extruder2: MachineProperties = {
           product_id: 131346514,  // EL2004
           revision: 1179648,
         },
-        {
-          vendor_id: 2,
-          product_id: 0x7d83052,  // EL2008 (131608658)
-          revision: 0x110000,     // 1114112
-        },
       ],
     },
     {
