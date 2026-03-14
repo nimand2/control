@@ -9,7 +9,7 @@ import { useTestMachine } from "./useTestMachine";
 export function TestMachineControlPage() {
   const { state, setLed, setAllLeds } = useTestMachine();
 
-  const safeState = state ?? { led_on: [false, false, false, false] };
+  const safeState = state ?? { led_on: [false, false, false, false, false, false, false, false] };
 
   return (
     <Page>

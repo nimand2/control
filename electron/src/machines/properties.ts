@@ -456,11 +456,16 @@ export const testmachine: MachineProperties = {
     },
     {
       role: 1,
-      role_label: "EL2004",
+      role_label: "EL2008",
       allowed_devices: [
         {
           vendor_id: 2,
-          product_id: 0x7d43052,
+          product_id: 0x7d83052,
+          revision: 0x110000,
+        },
+        {
+          vendor_id: 2,
+          product_id: 0x7d83052,
           revision: 0x120000,
         },
       ],

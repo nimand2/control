@@ -77,7 +77,7 @@ export function useTestMachine() {
   const setAllLeds = (on: boolean) => {
     updateStateOptimistically(
       (current) => {
-        current.led_on = [on, on, on, on];
+        current.led_on = [on, on, on, on, on, on, on, on];
       },
       () =>
         sendMutation({
