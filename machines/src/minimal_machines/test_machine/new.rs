@@ -18,6 +18,7 @@ use ethercat_hal::devices::wago_750_354::{WAGO_750_354_IDENTITY_A, Wago750_354};
 use ethercat_hal::devices::{EthercatDevice, downcast_device};
 use smol::lock::RwLock;
 use std::sync::Arc;
+was das fur ein scheiß ist das hier
 */
 
 impl MachineNewTrait for TestMachine {
