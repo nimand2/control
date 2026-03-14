@@ -18,9 +18,9 @@ pub struct TestMachine {
     pub machine_identification_unique: MachineIdentificationUnique,
     pub namespace: TestMachineNamespace,
     pub last_state_emit: Instant,
-    pub led_on: [bool; 4],
+    pub led_on: [bool; 8],
     pub main_sender: Option<Sender<AsyncThreadMessage>>,
-    pub douts: [DigitalOutput; 4],
+    pub douts: [DigitalOutput; 8],
 }
 
 impl Machine for TestMachine {
@@ -61,7 +61,7 @@ impl TestMachine {
 
     /// Set all LEDs at once
     pub fn set_all_leds(&mut self, on: bool) {
-        self.led_on = [on; 4];
+        self.led_on = [on; 8];
         self.emit_state();
     }
 }

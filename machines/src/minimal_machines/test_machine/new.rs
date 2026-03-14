@@ -9,7 +9,7 @@ use crate::{
 };
 
 use anyhow::Error;
-use ethercat_hal::devices::el2004::{EL2004, EL2004_IDENTITY_A, EL2004Port};
+use ethercat_hal::devices::el2008::{EL2008, EL2008_IDENTITY_A, EL2008Port};
 use ethercat_hal::io::digital_output::DigitalOutput;
 
 //Imports For Wago
@@ -70,14 +70,19 @@ impl MachineNewTrait for TestMachine {
             drop(coupler);
             */
 
-            let el2004 =
-                get_ethercat_device::<EL2004>(hardware, params, 1, [EL2004_IDENTITY_A].to_vec())
+            let el2008 =
+                get_ethercat_device::<EL2008>(hardware, params, 1, [EL2008_IDENTITY_A].to_vec())
                     .await?
                     .0;
-            let do1 = DigitalOutput::new(el2004.clone(), EL2004Port::DO1);
-            let do2 = DigitalOutput::new(el2004.clone(), EL2004Port::DO2);
-            let do3 = DigitalOutput::new(el2004.clone(), EL2004Port::DO3);
-            let do4 = DigitalOutput::new(el2004.clone(), EL2004Port::DO4);
+            let do1 = DigitalOutput::new(el2008.clone(), EL2008Port::DO1);
+            let do2 = DigitalOutput::new(el2008.clone(), EL2008Port::DO2);
+            let do3 = DigitalOutput::new(el2008.clone(), EL2008Port::DO3);
+            let do4 = DigitalOutput::new(el2008.clone(), EL2008Port::DO4);
+            let do5 = DigitalOutput::new(el2008.clone(), EL2008Port::DO5);
+            let do6 = DigitalOutput::new(el2008.clone(), EL2008Port::DO6);
+            let do7 = DigitalOutput::new(el2008.clone(), EL2008Port::DO7);
+            let do8 = DigitalOutput::new(el2008.clone(), EL2008Port::DO8);
+
             let (sender, receiver) = smol::channel::unbounded();
             let mut my_test = Self {
                 api_receiver: receiver,
@@ -87,9 +92,9 @@ impl MachineNewTrait for TestMachine {
                     namespace: params.namespace.clone(),
                 },
                 last_state_emit: Instant::now(),
-                led_on: [false; 4],
+                led_on: [false; 8],
                 main_sender: params.main_thread_channel.clone(),
-                douts: [do1, do2, do3, do4],
+                douts: [do1, do2, do3, do4, do5, do6, do7, do8],
             };
             my_test.emit_state();
             Ok(my_test)
