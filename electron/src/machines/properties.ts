@@ -432,7 +432,6 @@ export const aquapath1: MachineProperties = {
     },
   ],
 };
-
 export const testmachine: MachineProperties = {
   name: "TestMachine",
   version: "V1",
@@ -460,18 +459,30 @@ export const testmachine: MachineProperties = {
       allowed_devices: [
         {
           vendor_id: 2,
-          product_id: 0x7d83052,
-          revision: 0x110000,
+          product_id: 0x07d83052,
+          revision: 0x00110000,
         },
         {
           vendor_id: 2,
-          product_id: 0x7d83052,
+          product_id: 0x07d83052,
           revision: 0x120000,
+        },
+      ],
+    },
+    {
+      role: 2,
+      role_label: "EL1008",
+      allowed_devices: [
+        {
+          vendor_id: 2,
+          product_id: 0x03f03052,
+          revision: 0x00120000,
         },
       ],
     },
   ],
 };
+
 export const digitalInputTestMachine: MachineProperties = {
   name: "Digital Input Machine",
   version: "V1",
