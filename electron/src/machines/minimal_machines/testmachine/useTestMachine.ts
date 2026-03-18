@@ -64,12 +64,12 @@ export function useTestMachine() {
   const setLed = (index: number, on: boolean) => {
     updateStateOptimistically(
       (current) => {
-        current.led_on[index] = on;
+        current.digital_output[index] = on;
       },
       () =>
         sendMutation({
           machine_identification_unique: machineIdentification,
-          data: { action: "SetLed", value: { index, on } },
+          data: { action: "SetOutput", value: { index, on } },
         }),
     );
   };
@@ -77,12 +77,12 @@ export function useTestMachine() {
   const setAllLeds = (on: boolean) => {
     updateStateOptimistically(
       (current) => {
-        current.led_on = [on, on, on, on, on, on, on, on];
+        current.digital_output = Array(32).fill(on);
       },
       () =>
         sendMutation({
           machine_identification_unique: machineIdentification,
-          data: { action: "SetAllLeds", value: { on } },
+          data: { action: "SetAllOutputs", value: { on } },
         }),
     );
   };

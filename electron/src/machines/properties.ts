@@ -455,7 +455,7 @@ export const testmachine: MachineProperties = {
     },
     {
       role: 1,
-      role_label: "EL2008",
+      role_label: "EL2008 #1",
       allowed_devices: [
         {
           vendor_id: 2,
@@ -471,7 +471,66 @@ export const testmachine: MachineProperties = {
     },
     {
       role: 2,
-      role_label: "EL1008",
+      role_label: "EL2008 #2",
+      allowed_devices: [
+        {
+          vendor_id: 2,
+          product_id: 0x07d83052,
+          revision: 0x00110000,
+        },
+        {
+          vendor_id: 2,
+          product_id: 0x07d83052,
+          revision: 0x120000,
+        },
+      ],
+    },
+    {
+      role: 3,
+      role_label: "EL2008 #3",
+      allowed_devices: [
+        {
+          vendor_id: 2,
+          product_id: 0x07d83052,
+          revision: 0x00110000,
+        },
+        {
+          vendor_id: 2,
+          product_id: 0x07d83052,
+          revision: 0x120000,
+        },
+      ],
+    },
+    {
+      role: 4,
+      role_label: "EL2008 #4",
+      allowed_devices: [
+        {
+          vendor_id: 2,
+          product_id: 0x07d83052,
+          revision: 0x00110000,
+        },
+        {
+          vendor_id: 2,
+          product_id: 0x07d83052,
+          revision: 0x120000,
+        },
+      ],
+    },
+    {
+      role: 5,
+      role_label: "EL1008 #1",
+      allowed_devices: [
+        {
+          vendor_id: 2,
+          product_id: 0x03f03052,
+          revision: 0x00120000,
+        },
+      ],
+    },
+    {
+      role: 6,
+      role_label: "EL1008 #2",
       allowed_devices: [
         {
           vendor_id: 2,

@@ -1,16 +1,17 @@
-use crate::minimal_machines::test_machine::TestMachine;
 use crate::minimal_machines::test_machine::api::TestMachineNamespace;
+use crate::minimal_machines::test_machine::TestMachine;
 use smol::block_on;
 use std::time::Instant;
 
 use crate::{
-    MachineNewHardware, MachineNewParams, MachineNewTrait, get_ethercat_device,
-    validate_no_role_duplicates, validate_same_machine_identification_unique,
+    get_ethercat_device, validate_no_role_duplicates, validate_same_machine_identification_unique,
+    MachineNewHardware, MachineNewParams, MachineNewTrait,
 };
 
 use anyhow::Error;
-use ethercat_hal::devices::el2008::{EL2008, EL2008_IDENTITY_A, EL2008_IDENTITY_B, EL2008Port};
-use ethercat_hal::io::digital_output::DigitalOutput;
+use ethercat_hal::devices::el1008::{EL1008Port, EL1008, EL1008_IDENTITY_A};
+use ethercat_hal::devices::el2008::{EL2008Port, EL2008, EL2008_IDENTITY_A, EL2008_IDENTITY_B};
+use ethercat_hal::io::{digital_input::DigitalInput, digital_output::DigitalOutput};
 
 //Imports For Wago
 /*
@@ -71,7 +72,7 @@ impl MachineNewTrait for TestMachine {
             drop(coupler);
             */
 
-            let el2008 = get_ethercat_device::<EL2008>(
+            let el2008_1 = get_ethercat_device::<EL2008>(
                 hardware,
                 params,
                 1,
@@ -79,14 +80,92 @@ impl MachineNewTrait for TestMachine {
             )
             .await?
             .0;
-            let do1 = DigitalOutput::new(el2008.clone(), EL2008Port::DO1);
-            let do2 = DigitalOutput::new(el2008.clone(), EL2008Port::DO2);
-            let do3 = DigitalOutput::new(el2008.clone(), EL2008Port::DO3);
-            let do4 = DigitalOutput::new(el2008.clone(), EL2008Port::DO4);
-            let do5 = DigitalOutput::new(el2008.clone(), EL2008Port::DO5);
-            let do6 = DigitalOutput::new(el2008.clone(), EL2008Port::DO6);
-            let do7 = DigitalOutput::new(el2008.clone(), EL2008Port::DO7);
-            let do8 = DigitalOutput::new(el2008.clone(), EL2008Port::DO8);
+            let el2008_2 = get_ethercat_device::<EL2008>(
+                hardware,
+                params,
+                2,
+                [EL2008_IDENTITY_A, EL2008_IDENTITY_B].to_vec(),
+            )
+            .await?
+            .0;
+            let el2008_3 = get_ethercat_device::<EL2008>(
+                hardware,
+                params,
+                3,
+                [EL2008_IDENTITY_A, EL2008_IDENTITY_B].to_vec(),
+            )
+            .await?
+            .0;
+            let el2008_4 = get_ethercat_device::<EL2008>(
+                hardware,
+                params,
+                4,
+                [EL2008_IDENTITY_A, EL2008_IDENTITY_B].to_vec(),
+            )
+            .await?
+            .0;
+            let el1008_1 =
+                get_ethercat_device::<EL1008>(hardware, params, 5, [EL1008_IDENTITY_A].to_vec())
+                    .await?
+                    .0;
+            let el1008_2 =
+                get_ethercat_device::<EL1008>(hardware, params, 6, [EL1008_IDENTITY_A].to_vec())
+                    .await?
+                    .0;
+
+            let douts = [
+                DigitalOutput::new(el2008_1.clone(), EL2008Port::DO1),
+                DigitalOutput::new(el2008_1.clone(), EL2008Port::DO2),
+                DigitalOutput::new(el2008_1.clone(), EL2008Port::DO3),
+                DigitalOutput::new(el2008_1.clone(), EL2008Port::DO4),
+                DigitalOutput::new(el2008_1.clone(), EL2008Port::DO5),
+                DigitalOutput::new(el2008_1.clone(), EL2008Port::DO6),
+                DigitalOutput::new(el2008_1.clone(), EL2008Port::DO7),
+                DigitalOutput::new(el2008_1.clone(), EL2008Port::DO8),
+                DigitalOutput::new(el2008_2.clone(), EL2008Port::DO1),
+                DigitalOutput::new(el2008_2.clone(), EL2008Port::DO2),
+                DigitalOutput::new(el2008_2.clone(), EL2008Port::DO3),
+                DigitalOutput::new(el2008_2.clone(), EL2008Port::DO4),
+                DigitalOutput::new(el2008_2.clone(), EL2008Port::DO5),
+                DigitalOutput::new(el2008_2.clone(), EL2008Port::DO6),
+                DigitalOutput::new(el2008_2.clone(), EL2008Port::DO7),
+                DigitalOutput::new(el2008_2.clone(), EL2008Port::DO8),
+                DigitalOutput::new(el2008_3.clone(), EL2008Port::DO1),
+                DigitalOutput::new(el2008_3.clone(), EL2008Port::DO2),
+                DigitalOutput::new(el2008_3.clone(), EL2008Port::DO3),
+                DigitalOutput::new(el2008_3.clone(), EL2008Port::DO4),
+                DigitalOutput::new(el2008_3.clone(), EL2008Port::DO5),
+                DigitalOutput::new(el2008_3.clone(), EL2008Port::DO6),
+                DigitalOutput::new(el2008_3.clone(), EL2008Port::DO7),
+                DigitalOutput::new(el2008_3.clone(), EL2008Port::DO8),
+                DigitalOutput::new(el2008_4.clone(), EL2008Port::DO1),
+                DigitalOutput::new(el2008_4.clone(), EL2008Port::DO2),
+                DigitalOutput::new(el2008_4.clone(), EL2008Port::DO3),
+                DigitalOutput::new(el2008_4.clone(), EL2008Port::DO4),
+                DigitalOutput::new(el2008_4.clone(), EL2008Port::DO5),
+                DigitalOutput::new(el2008_4.clone(), EL2008Port::DO6),
+                DigitalOutput::new(el2008_4.clone(), EL2008Port::DO7),
+                DigitalOutput::new(el2008_4.clone(), EL2008Port::DO8),
+            ];
+
+            let dins = [
+                DigitalInput::new(el1008_1.clone(), EL1008Port::DI1),
+                DigitalInput::new(el1008_1.clone(), EL1008Port::DI2),
+                DigitalInput::new(el1008_1.clone(), EL1008Port::DI3),
+                DigitalInput::new(el1008_1.clone(), EL1008Port::DI4),
+                DigitalInput::new(el1008_1.clone(), EL1008Port::DI5),
+                DigitalInput::new(el1008_1.clone(), EL1008Port::DI6),
+                DigitalInput::new(el1008_1.clone(), EL1008Port::DI7),
+                DigitalInput::new(el1008_1.clone(), EL1008Port::DI8),
+                DigitalInput::new(el1008_2.clone(), EL1008Port::DI1),
+                DigitalInput::new(el1008_2.clone(), EL1008Port::DI2),
+                DigitalInput::new(el1008_2.clone(), EL1008Port::DI3),
+                DigitalInput::new(el1008_2.clone(), EL1008Port::DI4),
+                DigitalInput::new(el1008_2.clone(), EL1008Port::DI5),
+                DigitalInput::new(el1008_2.clone(), EL1008Port::DI6),
+                DigitalInput::new(el1008_2.clone(), EL1008Port::DI7),
+                DigitalInput::new(el1008_2.clone(), EL1008Port::DI8),
+            ];
 
             let (sender, receiver) = smol::channel::unbounded();
             let mut my_test = Self {
@@ -97,9 +176,10 @@ impl MachineNewTrait for TestMachine {
                     namespace: params.namespace.clone(),
                 },
                 last_state_emit: Instant::now(),
-                led_on: [false; 8],
+                digital_output: [false; 32],
                 main_sender: params.main_thread_channel.clone(),
-                douts: [do1, do2, do3, do4, do5, do6, do7, do8],
+                douts,
+                dins,
             };
             my_test.emit_state();
             Ok(my_test)

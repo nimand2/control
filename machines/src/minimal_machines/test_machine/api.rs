@@ -3,7 +3,7 @@ use crate::{MachineApi, MachineMessage};
 use control_core::socketio::{
     event::{Event, GenericEvent},
     namespace::{
-        CacheFn, CacheableEvents, Namespace, NamespaceCacheingLogic, cache_first_and_last_event,
+        cache_first_and_last_event, CacheFn, CacheableEvents, Namespace, NamespaceCacheingLogic,
     },
 };
 use serde::{Deserialize, Serialize};
@@ -12,7 +12,8 @@ use std::sync::Arc;
 
 #[derive(Serialize, Debug, Clone)]
 pub struct StateEvent {
-    pub led_on: [bool; 8],
+    pub digital_output: [bool; 32],
+    pub digital_input: [bool; 16],
 }
 
 impl StateEvent {
@@ -28,8 +29,8 @@ pub enum TestMachineEvents {
 #[derive(Deserialize)]
 #[serde(tag = "action", content = "value")]
 pub enum Mutation {
-    SetLed { index: usize, on: bool },
-    SetAllLeds { on: bool },
+    SetOutput { index: usize, on: bool },
+    SetAllOutputs { on: bool },
 }
 
 #[derive(Debug, Clone)]
@@ -67,12 +68,8 @@ impl MachineApi for TestMachine {
     fn api_mutate(&mut self, request_body: Value) -> Result<(), anyhow::Error> {
         let mutation: Mutation = serde_json::from_value(request_body)?;
         match mutation {
-            Mutation::SetLed { index, on } => self.set_led(index, on),
-            Mutation::SetAllLeds { on } => self.set_all_leds(on),
-        }
-
-        for (led, &on) in self.douts.iter().zip(self.led_on.iter()) {
-            led.set(on);
+            Mutation::SetOutput { index, on } => self.set_output(index, on),
+            Mutation::SetAllOutputs { on } => self.set_all_outputs(on),
         }
 
         Ok(())
