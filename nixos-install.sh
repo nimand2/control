@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 set -euo pipefail
 
@@ -34,6 +34,7 @@ sudo \
     	--show-trace \
     	--impure \
     	--option sandbox false \
-    	--option eval-cache false
+    	--option eval-cache false \
+    	-L
 
 sudo reboot

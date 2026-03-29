@@ -13,7 +13,7 @@ pub struct TemperatureInput {
 
 impl fmt::Debug for TemperatureInput {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(f, "DigitalInput")
+        write!(f, "TemperatureInput")
     }
 }
 
@@ -54,6 +54,8 @@ pub enum TemperatureInputError {
 
     /// Under-voltage error
     UnderVoltage,
+
+    WireBreak,
 }
 
 #[derive(Debug, Clone)]
