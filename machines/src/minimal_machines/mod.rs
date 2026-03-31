@@ -1,5 +1,6 @@
 pub mod analog_input_test_machine;
 pub mod digital_input_test_machine;
+pub mod el1014_test_machine;
 pub mod ip20_test_machine;
 pub mod mock;
 pub mod motor_test_machine;

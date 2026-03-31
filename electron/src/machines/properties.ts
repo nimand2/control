@@ -554,6 +554,35 @@ export const digitalInputTestMachine: MachineProperties = {
   device_roles: [],
 };
 
+export const el1014TestMachine: MachineProperties = {
+  name: "EL1014 Test Machine",
+  version: "V1",
+  slug: "el1014testmachine",
+  icon: "lu:ToggleLeft",
+  machine_identification: {
+    vendor: VENDOR_QITECH,
+    machine: 0x0047,
+  },
+  device_roles: [
+    {
+      role: 0,
+      role_label: "EL1014",
+      allowed_devices: [
+        {
+          vendor_id: 0x2,
+          product_id: 0x03f63052,
+          revision: 0x00110000,
+        },
+        {
+          vendor_id: 0x2,
+          product_id: 0x03f63052,
+          revision: 0x00120000,
+        },
+      ],
+    },
+  ],
+};
+
 export const wago750430DiMachine: MachineProperties = {
   name: "WAGO 750-430 8CH DI",
   version: "V1",
@@ -898,6 +927,7 @@ export const machineProperties: MachineProperties[] = [
   analogInputTestMachine,
   wagoAiTestMachine,
   digitalInputTestMachine,
+  el1014TestMachine,
   wago8chDioTestMachine,
   wago750430DiMachine,
   ip20TestMachine,

@@ -1,5 +1,6 @@
 use crate::minimal_machines::analog_input_test_machine::AnalogInputTestMachine;
 use crate::minimal_machines::digital_input_test_machine::DigitalInputTestMachine;
+use crate::minimal_machines::el1014_test_machine::EL1014TestMachine;
 use crate::minimal_machines::ip20_test_machine::IP20TestMachine;
 use crate::minimal_machines::wago_8ch_dio_test_machine::Wago8chDigitalIOTestMachine;
 use crate::minimal_machines::wago_750_430_di_machine::Wago750_430DiMachine;
@@ -145,6 +146,7 @@ lazy_static! {
         mc.register::<MotorTestMachine>(MotorTestMachine::MACHINE_IDENTIFICATION);
 
         mc.register::<DigitalInputTestMachine>(DigitalInputTestMachine::MACHINE_IDENTIFICATION);
+        mc.register::<EL1014TestMachine>(EL1014TestMachine::MACHINE_IDENTIFICATION);
 
         mc.register::<WagoDOTestMachine>(WagoDOTestMachine::MACHINE_IDENTIFICATION);
 

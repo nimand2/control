@@ -65,6 +65,7 @@ impl MachineIdentification {
             x if x == WAGO_AI_TEST_MACHINE => "wago_ai_test_machine".to_string(),
             x if x == WAGO_DO_TEST_MACHINE => "wago_do_test_machine".to_string(),
             x if x == WAGO_750_430_DI_MACHINE => "wago_750_430_di_machine".to_string(),
+            x if x == EL1014_TEST_MACHINE => "el1014_test_machine".to_string(),
 
             _ => unreachable!("Unknown machine id"),
         }
@@ -147,6 +148,7 @@ use anyhow::anyhow;
 use ethercat_hal::devices::ek1100::EK1100_IDENTITY_A;
 use ethercat_hal::devices::el1002::EL1002_IDENTITY_A;
 use ethercat_hal::devices::el1008::EL1008_IDENTITY_A;
+use ethercat_hal::devices::el1014::{EL1014_IDENTITY_A, EL1014_IDENTITY_B};
 use ethercat_hal::devices::el2002::EL2002_IDENTITY_A;
 use ethercat_hal::devices::el2002::EL2002_IDENTITY_B;
 use ethercat_hal::devices::el2004::EL2004_IDENTITY_A;
@@ -178,6 +180,7 @@ use ethercrab::MainDevice;
 use ethercrab::SubDeviceIdentity;
 
 use crate::ANALOG_INPUT_TEST_MACHINE;
+use crate::EL1014_TEST_MACHINE;
 use crate::IP20_TEST_MACHINE;
 use crate::MACHINE_AQUAPATH_V1;
 use crate::MACHINE_BUFFER_V1;
@@ -396,6 +399,7 @@ pub fn get_identification_addresses(
         EK1100_IDENTITY_A => MachineIdentificationAddresses::default(),
         EL1002_IDENTITY_A => MachineIdentificationAddresses::default(),
         EL1008_IDENTITY_A => MachineIdentificationAddresses::default(),
+        EL1014_IDENTITY_A | EL1014_IDENTITY_B => MachineIdentificationAddresses::default(),
         EL2002_IDENTITY_A | EL2002_IDENTITY_B => MachineIdentificationAddresses::default(),
         EL2004_IDENTITY_A => MachineIdentificationAddresses::default(),
         EL2008_IDENTITY_A | EL2008_IDENTITY_B => MachineIdentificationAddresses::default(),

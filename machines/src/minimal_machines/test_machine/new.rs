@@ -1,16 +1,16 @@
-use crate::minimal_machines::test_machine::api::TestMachineNamespace;
 use crate::minimal_machines::test_machine::TestMachine;
+use crate::minimal_machines::test_machine::api::TestMachineNamespace;
 use smol::block_on;
 use std::time::Instant;
 
 use crate::{
-    get_ethercat_device, validate_no_role_duplicates, validate_same_machine_identification_unique,
-    MachineNewHardware, MachineNewParams, MachineNewTrait,
+    MachineNewHardware, MachineNewParams, MachineNewTrait, get_ethercat_device,
+    validate_no_role_duplicates, validate_same_machine_identification_unique,
 };
 
 use anyhow::Error;
-use ethercat_hal::devices::el1008::{EL1008Port, EL1008, EL1008_IDENTITY_A};
-use ethercat_hal::devices::el2008::{EL2008Port, EL2008, EL2008_IDENTITY_A, EL2008_IDENTITY_B};
+use ethercat_hal::devices::el1008::{EL1008, EL1008_IDENTITY_A, EL1008Port};
+use ethercat_hal::devices::el2008::{EL2008, EL2008_IDENTITY_A, EL2008_IDENTITY_B, EL2008Port};
 use ethercat_hal::io::{digital_input::DigitalInput, digital_output::DigitalOutput};
 
 //Imports For Wago

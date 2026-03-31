@@ -1,5 +1,5 @@
-use super::TestMachine;
-use crate::{MachineApi, MachineMessage};
+use std::sync::Arc;
+
 use control_core::socketio::{
     event::{Event, GenericEvent},
     namespace::{
@@ -7,13 +7,12 @@ use control_core::socketio::{
     },
 };
 use serde::{Deserialize, Serialize};
-use serde_json::Value;
-use std::sync::Arc;
+
+use crate::{MachineApi, minimal_machines::el1014_test_machine::EL1014TestMachine};
 
 #[derive(Serialize, Debug, Clone)]
 pub struct StateEvent {
-    pub digital_output: [bool; 32],
-    pub digital_input: [bool; 16],
+    pub inputs: [bool; 4],
 }
 
 impl StateEvent {
@@ -22,24 +21,21 @@ impl StateEvent {
     }
 }
 
-pub enum TestMachineEvents {
+pub enum EL1014TestMachineEvents {
     State(Event<StateEvent>),
 }
 
 #[derive(Deserialize)]
 #[serde(tag = "action", content = "value")]
-pub enum Mutation {
-    SetOutput { index: usize, on: bool },
-    SetAllOutputs { on: bool },
-}
+pub enum Mutation {}
 
 #[derive(Debug, Clone)]
-pub struct TestMachineNamespace {
+pub struct EL1014TestMachineNamespace {
     pub namespace: Option<Namespace>,
 }
 
-impl NamespaceCacheingLogic<TestMachineEvents> for TestMachineNamespace {
-    fn emit(&mut self, events: TestMachineEvents) {
+impl NamespaceCacheingLogic<EL1014TestMachineEvents> for EL1014TestMachineNamespace {
+    fn emit(&mut self, events: EL1014TestMachineEvents) {
         let event = Arc::new(events.event_value());
         let buffer_fn = events.event_cache_fn();
         if let Some(ns) = &mut self.namespace {
@@ -48,10 +44,10 @@ impl NamespaceCacheingLogic<TestMachineEvents> for TestMachineNamespace {
     }
 }
 
-impl CacheableEvents<TestMachineEvents> for TestMachineEvents {
+impl CacheableEvents<EL1014TestMachineEvents> for EL1014TestMachineEvents {
     fn event_value(&self) -> GenericEvent {
         match self {
-            TestMachineEvents::State(event) => event.clone().into(),
+            EL1014TestMachineEvents::State(event) => event.clone().into(),
         }
     }
 
@@ -60,18 +56,13 @@ impl CacheableEvents<TestMachineEvents> for TestMachineEvents {
     }
 }
 
-impl MachineApi for TestMachine {
-    fn api_get_sender(&self) -> smol::channel::Sender<MachineMessage> {
+impl MachineApi for EL1014TestMachine {
+    fn api_get_sender(&self) -> smol::channel::Sender<crate::MachineMessage> {
         self.api_sender.clone()
     }
 
-    fn api_mutate(&mut self, request_body: Value) -> Result<(), anyhow::Error> {
-        let mutation: Mutation = serde_json::from_value(request_body)?;
-        match mutation {
-            Mutation::SetOutput { index, on } => self.set_output(index, on),
-            Mutation::SetAllOutputs { on } => self.set_all_outputs(on),
-        }
-
+    fn api_mutate(&mut self, _value: serde_json::Value) -> Result<(), anyhow::Error> {
+        // EL1014 is a digital input terminal - no mutations supported
         Ok(())
     }
 
