@@ -14,7 +14,9 @@ import {
 import { MachineIdentificationUnique } from "@/machines/types";
 
 const stateDataSchema = z.object({ outputs: z.array(z.boolean()).length(8) });
-const liveValuesDataSchema = z.object({ inputs: z.array(z.boolean()).length(8) });
+const liveValuesDataSchema = z.object({
+  inputs: z.array(z.boolean()).length(8),
+});
 const stateSchema = eventSchema(stateDataSchema);
 const liveValuesSchema = eventSchema(liveValuesDataSchema);
 
@@ -37,10 +39,16 @@ const createLedTestMessageHandler = (
   return (event: Event<any>) => {
     if (event.name === "StateEvent") {
       const parsed = stateSchema.parse(event);
-      throttledUpdater.updateWith((current) => ({ ...current, state: parsed.data }));
+      throttledUpdater.updateWith((current) => ({
+        ...current,
+        state: parsed.data,
+      }));
     } else if (event.name === "LiveValuesEvent") {
       const parsed = liveValuesSchema.parse(event);
-      throttledUpdater.updateWith((current) => ({ ...current, liveValues: parsed.data }));
+      throttledUpdater.updateWith((current) => ({
+        ...current,
+        liveValues: parsed.data,
+      }));
     } else {
       handleUnhandledEventError(event.name);
     }

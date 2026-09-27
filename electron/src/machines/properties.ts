@@ -778,17 +778,23 @@ export const ledTestMachine: MachineProperties = {
     {
       role: 0,
       role_label: "EK1100 Bus Coupler",
-      allowed_devices: [{ vendor_id: 2, product_id: 0x44c2c52, revision: 0x120000 }],
+      allowed_devices: [
+        { vendor_id: 2, product_id: 0x44c2c52, revision: 0x120000 },
+      ],
     },
     ...[1, 2].map((role) => ({
       role,
       role_label: `EL1014 Digital Inputs ${role}`,
-      allowed_devices: [{ vendor_id: 2, product_id: 0x3f63052, revision: 0x120000 }],
+      allowed_devices: [
+        { vendor_id: 2, product_id: 0x3f63052, revision: 0x120000 },
+      ],
     })),
     ...[3, 4].map((role) => ({
       role,
       role_label: `EL2004 LED Outputs ${role - 2}`,
-      allowed_devices: [{ vendor_id: 2, product_id: 0x7d43052, revision: 0x120000 }],
+      allowed_devices: [
+        { vendor_id: 2, product_id: 0x7d43052, revision: 0x120000 },
+      ],
     })),
   ],
 };

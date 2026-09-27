@@ -29,15 +29,18 @@ export function useLedTestMachine() {
     };
   }, [serialString]);
 
-  const { state, liveValues } = useLedTestMachineNamespace(machineIdentification);
+  const { state, liveValues } = useLedTestMachineNamespace(
+    machineIdentification,
+  );
   const optimisticState = useStateOptimistic<LedTestState>();
+  const { setReal } = optimisticState;
   const { request: sendMutation } = useMachineMutate(
     z.object({ action: z.string(), value: z.any() }),
   );
 
   useEffect(() => {
-    if (state) optimisticState.setReal(state);
-  }, [state, optimisticState]);
+    if (state) setReal(state);
+  }, [state, setReal]);
 
   const setOutput = (index: number, on: boolean) => {
     const current = optimisticState.value;

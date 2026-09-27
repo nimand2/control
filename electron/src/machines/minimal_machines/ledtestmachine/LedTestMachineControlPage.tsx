@@ -1,3 +1,4 @@
+import React from "react";
 import { Badge } from "@/components/ui/badge";
 import { Page } from "@/components/Page";
 import { ControlCard } from "@/control/ControlCard";
@@ -34,7 +35,13 @@ export function LedTestMachineControlPage() {
           </div>
           <div className="mt-4">
             <SelectionGroup<"On" | "Off">
-              value={outputs.every(Boolean) ? "On" : "Off"}
+              value={
+                outputs.every(Boolean)
+                  ? "On"
+                  : outputs.every((on) => !on)
+                    ? "Off"
+                    : undefined
+              }
               options={{
                 Off: { children: "All Off", icon: "lu:CirclePause" },
                 On: { children: "All On", icon: "lu:CirclePlay" },
