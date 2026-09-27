@@ -2,10 +2,10 @@ use anyhow::bail;
 use apis::socketio::queue::start_socketio_queue;
 use app_state::SharedAppState;
 use machine_implementations::MACHINE_LASER_V1;
+use machine_implementations::ethercat_devices::device_from_subdevice;
 use machine_implementations::registry::MACHINE_REGISTRY;
 #[cfg(not(feature = "mock"))]
 use machine_loop::{run_machines, write_ecat_inputs, write_ecat_outputs};
-use qitech_lib::ethercat_hal::devices::device_from_subdevice_identity_rc;
 #[cfg(not(feature = "mock"))]
 use qitech_lib::ethercat_hal::{
     DcConfiguration, MasterConfiguration, RtOptimizationConfig, init_ethercat,
@@ -85,7 +85,7 @@ fn setup_ethercat(
     );
 
     for meta in eth_control.app_handle.try_get_subdevices_vec_sync()? {
-        let dev = device_from_subdevice_identity_rc(&meta);
+        let dev = device_from_subdevice(&meta);
 
         let dev = match dev {
             Ok(d) => d,

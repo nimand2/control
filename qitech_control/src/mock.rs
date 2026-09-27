@@ -457,7 +457,7 @@ pub fn mock_logic() {
         detect_and_build_machines, send_setup_done_events, setup_api_and_websock,
     };
     use qitech_lib::ethercat_hal::{
-        devices::{MockEtherCatSdos, device_from_subdevice_identity_rc, el3204::EL3204},
+        devices::{MockEtherCatSdos, el3204::EL3204},
         init_ethercat_mock,
     };
     use std::collections::HashMap;
@@ -515,7 +515,7 @@ pub fn mock_logic() {
 
     // Populate main_state subdevices list
     for meta in meta_subdevices {
-        let dev = device_from_subdevice_identity_rc(&meta).unwrap();
+        let dev = machine_implementations::ethercat_devices::device_from_subdevice(&meta).unwrap();
         main_state.subdevices.push((meta, dev.clone()));
     }
 

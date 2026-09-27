@@ -117,6 +117,7 @@ impl MachineIdentification {
             x if x == WAGO_8CH_IO_TEST_MACHINE => "wago_8ch_io_test_machine".to_string(),
             x if x == TEST_MACHINE_BOTTLECAPS => "bottlecaps_test_machine".to_string(),
             x if x == MACHINE_DRYER_V1 => "dryer_v1".to_string(),
+            x if x == MACHINE_LED_TEST => "led_test".to_string(),
             _ => unreachable!("Unknown machine id {}", self.machine),
         }
     }
@@ -217,6 +218,7 @@ use crate::MACHINE_DRYER_V1;
 use crate::MACHINE_EXTRUDER_V1;
 use crate::MACHINE_EXTRUDER_V2;
 use crate::MACHINE_LASER_V1;
+use crate::MACHINE_LED_TEST;
 use crate::MACHINE_MOCK;
 use crate::MACHINE_REWINDER_V1;
 use crate::MACHINE_WAGO_POWER_V1;

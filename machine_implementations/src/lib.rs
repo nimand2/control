@@ -15,8 +15,11 @@ use tokio::sync::mpsc::Sender;
 
 pub mod aquapath1;
 pub mod dryer;
+pub mod el1014;
+pub mod ethercat_devices;
 pub mod extruder1;
 pub mod laser;
+pub mod led_test;
 pub mod machine_identification;
 //pub mod minimal_machines;
 pub mod registry;
@@ -50,6 +53,7 @@ pub const MOTOR_TEST_MACHINE: u16 = 0x0011;
 pub const WAGO_DO_TEST_MACHINE: u16 = 0x000E;
 pub const WAGO_750_501_TEST_MACHINE: u16 = 0x0042;
 pub const TEST_MACHINE_BOTTLECAPS: u16 = 0x0039;
+pub const MACHINE_LED_TEST: u16 = 0x0048;
 
 #[derive(Serialize, Debug, Clone)]
 pub struct MachineValues {

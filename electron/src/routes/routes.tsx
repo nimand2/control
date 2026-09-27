@@ -92,6 +92,8 @@ import { DigitalInputTestMachineControlPage } from "@/machines/minimal_machines/
 
 import { IP20TestMachinePage } from "@/machines/minimal_machines/ip20testmachine/IP20TestMachinePage";
 import { IP20TestMachineControlPage } from "@/machines/minimal_machines/ip20testmachine/IP20TestMachineControlPage";
+import { LedTestMachinePage } from "@/machines/minimal_machines/ledtestmachine/LedTestMachinePage";
+import { LedTestMachineControlPage } from "@/machines/minimal_machines/ledtestmachine/LedTestMachineControlPage";
 import { TestMotorPage } from "@/machines/minimal_machines/motor_test_machine/TestMotorPage";
 import { TestMotorControlPage } from "@/machines/minimal_machines/motor_test_machine/TestMotorControlPage";
 
@@ -231,6 +233,18 @@ export const ip20TestMachineControlRoute = createRoute({
   getParentRoute: () => ip20TestMachineSerialRoute,
   path: "control",
   component: () => <IP20TestMachineControlPage />,
+});
+
+export const ledTestMachineSerialRoute = createRoute({
+  getParentRoute: () => machinesRoute,
+  path: "ledtestmachine/$serial",
+  component: () => <LedTestMachinePage />,
+});
+
+export const ledTestMachineControlRoute = createRoute({
+  getParentRoute: () => ledTestMachineSerialRoute,
+  path: "control",
+  component: () => <LedTestMachineControlPage />,
 });
 
 export const testMotorSerialRoute = createRoute({
@@ -776,6 +790,8 @@ export const rootTree = RootRoute.addChildren([
       ]),
 
       ip20TestMachineSerialRoute.addChildren([ip20TestMachineControlRoute]),
+
+      ledTestMachineSerialRoute.addChildren([ledTestMachineControlRoute]),
 
       testMotorSerialRoute.addChildren([testMotorControlRoute]),
 

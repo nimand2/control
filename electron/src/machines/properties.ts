@@ -765,6 +765,34 @@ export const ip20TestMachine: MachineProperties = {
   ],
 };
 
+export const ledTestMachine: MachineProperties = {
+  name: "LED Test",
+  version: "V1",
+  slug: "ledtestmachine",
+  icon: "lu:Lightbulb",
+  machine_identification: {
+    vendor: VENDOR_QITECH,
+    machine: 0x0048,
+  },
+  device_roles: [
+    {
+      role: 0,
+      role_label: "EK1100 Bus Coupler",
+      allowed_devices: [{ vendor_id: 2, product_id: 0x44c2c52, revision: 0x120000 }],
+    },
+    ...[1, 2].map((role) => ({
+      role,
+      role_label: `EL1014 Digital Inputs ${role}`,
+      allowed_devices: [{ vendor_id: 2, product_id: 0x3f63052, revision: 0x120000 }],
+    })),
+    ...[3, 4].map((role) => ({
+      role,
+      role_label: `EL2004 LED Outputs ${role - 2}`,
+      allowed_devices: [{ vendor_id: 2, product_id: 0x7d43052, revision: 0x120000 }],
+    })),
+  ],
+};
+
 export const testmachinestepper: MachineProperties = {
   name: "TestMachineStepper",
   version: "V1",
@@ -1056,6 +1084,7 @@ export const machineProperties: MachineProperties[] = [
   wago8chDioTestMachine,
   wago750430DiMachine,
   ip20TestMachine,
+  ledTestMachine,
   wagoDoTestMachine,
   wago750_531Machine,
   wago750_501TestMachine,

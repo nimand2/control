@@ -1,7 +1,7 @@
 use crate::extruder1::ExtruderV2;
 use crate::{
     MachineHardware, MachineNew, QiTechMachine, aquapath1::AquaPathV1, dryer::DryerMachine,
-    laser::LaserMachine, rewinder::Rewinder, winder2::Winder2,
+    laser::LaserMachine, led_test::LedTestMachine, rewinder::Rewinder, winder2::Winder2,
 };
 use anyhow::Error;
 use lazy_static::lazy_static;
@@ -78,6 +78,7 @@ lazy_static! {
         #[cfg(not(feature = "mock-machine"))]
         mc.register::<Rewinder>(vec![Rewinder::MACHINE_IDENTIFICATION]);
         mc.register::<LaserMachine>(vec![LaserMachine::MACHINE_IDENTIFICATION]);
+        mc.register::<LedTestMachine>(vec![LedTestMachine::MACHINE_IDENTIFICATION]);
 
 
         #[cfg(not(feature = "mock-machine"))]
